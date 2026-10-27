@@ -8,26 +8,20 @@ public class GameFrame extends JFrame {
     private final JPanel root = new JPanel(cards);
     private final MenuPanel menu;
     private final GamePanel game;
-    private final LeaderboardPanel leaderboard;
-    private final LoginPanel login;
     private final LevelSelectPanel levels;
 
     public GameFrame() {
-        super("Platform Jumper");
+        super("JUMPBRO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(960, 640);
         setMinimumSize(new Dimension(800, 560));
         setLocationRelativeTo(null);
         menu = new MenuPanel(this);
         game = new GamePanel(this);
-        leaderboard = new LeaderboardPanel(this);
-        login = new LoginPanel(this);
         levels = new LevelSelectPanel(this);
         root.add(menu, "menu");
-        root.add(login, "login");
         root.add(levels, "levels");
         root.add(game, "game");
-        root.add(leaderboard, "leaderboard");
         setContentPane(root);
     }
 
@@ -37,16 +31,9 @@ public class GameFrame extends JFrame {
         cards.show(root, "menu");
     }
 
-    /** START ADVENTURE: players must sign in before they can play. */
+    /** START ADVENTURE: opens level select immediately (no account required). */
     public void startAdventure() {
-        if (UserManager.getInstance().isLoggedIn()) showLevelSelect();
-        else showLogin();
-    }
-
-    public void showLogin() {
-        game.stopGame();
-        login.reset();
-        cards.show(root, "login");
+        showLevelSelect();
     }
 
     public void showLevelSelect() {
@@ -63,11 +50,5 @@ public class GameFrame extends JFrame {
 
     public void showInstructions() {
         new HowToPlayDialog(this).setVisible(true);
-    }
-
-    public void showScores() {
-        game.stopGame();
-        leaderboard.refreshRows("");
-        cards.show(root, "leaderboard");
     }
 }

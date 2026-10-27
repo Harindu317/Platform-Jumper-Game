@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements ActionListener {
         ended = true;
         timer.stop();
         score += 500 + lives * 100;
-        UserManager.getInstance().recordLevel(levelNumber, score);
+        ProgressManager.getInstance().recordLevel(levelNumber, score);
         pendingDialog = this::showCompleteDialog;
     }
 
@@ -217,10 +217,10 @@ public class GamePanel extends JPanel implements ActionListener {
         } else {
             choice = MenuDialog.show(frame, "YOU WIN!", Theme.GOLD,
                 new String[]{"Earth, Space and Moon cleared - all " + Level.TOTAL_LEVELS + " levels complete",
-                             "Total score: " + String.format("%,d", UserManager.getInstance().getTotal())},
-                new String[]{"LEVEL SELECT", "LEADERBOARD", "MAIN MENU"});
+                             "Total score: " + String.format("%,d", ProgressManager.getInstance().getTotal())},
+                new String[]{"PLAY AGAIN", "LEVEL SELECT", "MAIN MENU"});
             switch (choice) {
-                case 1: frame.showScores(); break;
+                case 0: startLevel(1); break;
                 case 2: frame.showMenu(); break;
                 default: frame.showLevelSelect();
             }

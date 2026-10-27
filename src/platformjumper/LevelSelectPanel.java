@@ -27,11 +27,8 @@ public class LevelSelectPanel extends Theme.Screen {
         titles.add(playerLabel);
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         buttons.setOpaque(false);
-        JButton scores = Theme.button("LEADERBOARD", false, 150, 38);
-        scores.addActionListener(e -> frame.showScores());
         JButton back = Theme.button("BACK", false, 150, 38);
         back.addActionListener(e -> frame.showMenu());
-        buttons.add(scores);
         buttons.add(back);
         JPanel buttonWrap = new JPanel(new GridBagLayout());
         buttonWrap.setOpaque(false);
@@ -48,14 +45,14 @@ public class LevelSelectPanel extends Theme.Screen {
         add(foot, BorderLayout.SOUTH);
     }
 
-    /** Rebuilds the tiles from the signed-in player's progress. */
+    /** Rebuilds the tiles from player progress. */
     public void refresh() {
-        UserManager um = UserManager.getInstance();
-        int unlocked = um.getUnlocked();
-        playerLabel.setText("Player: " + um.getCurrentName() + "   \u2022   Unlocked " + unlocked + " of " + Level.TOTAL_LEVELS
-            + "   \u2022   Total score " + String.format("%,d", um.getTotal()));
+        ProgressManager pm = ProgressManager.getInstance();
+        int unlocked = pm.getUnlocked();
+        playerLabel.setText("Unlocked " + unlocked + " of " + Level.TOTAL_LEVELS
+            + "   \u2022   Total score " + String.format("%,d", pm.getTotal()));
         grid.removeAll();
-        for (int n = 1; n <= Level.TOTAL_LEVELS; n++) grid.add(new Tile(n, n <= unlocked, um.getBest(n), n == unlocked));
+        for (int n = 1; n <= Level.TOTAL_LEVELS; n++) grid.add(new Tile(n, n <= unlocked, pm.getBest(n), n == unlocked));
         grid.revalidate();
         grid.repaint();
     }
