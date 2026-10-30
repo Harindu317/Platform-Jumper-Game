@@ -11,6 +11,7 @@ public class MenuPanel extends JPanel {
     private final Star[] stars = new Star[95];
     private final Timer animation;
     private float glow = 0;
+    private final JButton userLink = new JButton();
 
     private static class Star {
         float x, y, r, speed;
@@ -29,28 +30,43 @@ public class MenuPanel extends JPanel {
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBorder(BorderFactory.createEmptyBorder(20, 30, 16, 30));
 
-        JLabel title = new JLabel("JUMP");
+        JLabel title = new JLabel("PLATFORM");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setFont(new Font("SansSerif", Font.BOLD, 52));
+        title.setFont(new Font("SansSerif", Font.BOLD, 48));
         title.setForeground(Color.WHITE);
-        JLabel title2 = new JLabel("BRO");
+        JLabel title2 = new JLabel("JUMPER");
         title2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title2.setFont(new Font("SansSerif", Font.BOLD, 58));
+        title2.setFont(new Font("SansSerif", Font.BOLD, 54));
         title2.setForeground(new Color(255, 207, 77));
         JLabel subtitle = new JLabel("RUN • JUMP • COLLECT • CONQUER");
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         subtitle.setFont(new Font("SansSerif", Font.BOLD, 13));
         subtitle.setForeground(new Color(183, 204, 238));
 
-        content.add(title); content.add(title2); content.add(Box.createVerticalStrut(3)); content.add(subtitle);
-        content.add(Box.createVerticalStrut(20));
+                content.add(title); content.add(title2); content.add(Box.createVerticalStrut(3)); content.add(subtitle);
+        content.add(Box.createVerticalStrut(14));
+        userLink.setAlignmentX(Component.CENTER_ALIGNMENT);
+        userLink.setFont(new Font("SansSerif", Font.BOLD, 12));
+        userLink.setForeground(new Color(93, 239, 255));
+        userLink.setContentAreaFilled(false);
+        userLink.setBorderPainted(false);
+        userLink.setFocusPainted(false);
+        userLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        userLink.addActionListener(e -> {
+            if (UserManager.getInstance().isLoggedIn()) { UserManager.getInstance().logout(); refresh(); }
+            else frame.showLogin();
+        });
+        content.add(userLink);
+        content.add(Box.createVerticalStrut(10));
         content.add(makeButton("START ADVENTURE", true, frame::startAdventure));
-        content.add(Box.createVerticalStrut(12));
+        content.add(Box.createVerticalStrut(10));
+        content.add(makeButton("LEADERBOARD", false, frame::showScores));
+        content.add(Box.createVerticalStrut(10));
         content.add(makeButton("HOW TO PLAY", false, frame::showInstructions));
-        content.add(Box.createVerticalStrut(12));
+        content.add(Box.createVerticalStrut(10));
         content.add(makeButton("EXIT GAME", false, () -> System.exit(0)));
-        content.add(Box.createVerticalStrut(22));
-        JLabel footer = new JLabel("FIFTEEN LEVELS   •   THREE WORLDS   •   CAN YOU CONQUER ALL?", SwingConstants.CENTER);
+        content.add(Box.createVerticalStrut(19));
+        JLabel footer = new JLabel("FIFTEEN LEVELS   •   ONE LEGEND   •   YOUR HIGH SCORE", SwingConstants.CENTER);
         footer.setAlignmentX(Component.CENTER_ALIGNMENT);
         footer.setFont(new Font("SansSerif", Font.BOLD, 10));
         footer.setForeground(new Color(124, 151, 192));
@@ -64,7 +80,10 @@ public class MenuPanel extends JPanel {
         refresh();
     }
 
+    /** Updates the sign-in line under the title. */
     public void refresh() {
+        UserManager um = UserManager.getInstance();
+        userLink.setText(um.isLoggedIn() ? "Sign Out, " + um.getCurrentName() : "Sign in");
         repaint();
     }
 

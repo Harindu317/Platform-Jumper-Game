@@ -1,6 +1,6 @@
-# JUMPBRO — Enhanced Java Swing Edition
+# Platform Jumper — Enhanced Java Swing Edition
 
-A 2D platform game. Features a neon arcade main menu, gradients/parallax scenery, polished coins and platforms, and instant play with no account or login required.
+A 2D platform game for the KDU IT22013 Data Structures & Algorithms assignment. The updated edition includes a neon arcade main menu, a dedicated leaderboard screen with a top-three podium, searchable score table, gradients/parallax scenery, polished coins and platforms, and the original DSA demonstrations.
 
 ## Requirements
 - JDK 17 or newer recommended.
@@ -41,9 +41,12 @@ Levels are longer than before, and flags along the way are checkpoints: after lo
 - B, Backspace or the BACK button (top right): leave the level and return to level select.
 - After Game Over/Victory: Enter restarts, M returns to menu.
 
-## Features and gameplay
-- Arrays and lists store level objects and collision boundaries.
+## Data structures and algorithms
+- Arrays/lists store level objects and leaderboard records.
 - `GameEventManager` uses a queue to process game events in order.
+- `Leaderboard.bubbleSort()` manually sorts scores from high to low.
+- `LeaderboardPanel` search filters player names and score text by scanning records (Linear Search).
 - `Level.levelsRemaining()` demonstrates recursive level progression (15 levels).
-- Anyone can play instantly without creating an account or logging in.
-- Level progression and high scores are automatically saved locally via `ProgressManager` (`~/.jumpbro-progress.txt`).
+- Players must sign in (`UserManager`, salted PBKDF2 passwords, Linear Search by username). Progress and best scores are saved per account; levels unlock in order.
+
+Scores are saved locally to `${user.home}/.platform-jumper-scores.txt`.

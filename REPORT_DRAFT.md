@@ -1,18 +1,18 @@
-# JUMPBRO — IT22013 Assignment Report Draft
+# Platform Jumper — IT22013 Assignment Report Draft
 
 **University:** General Sir John Kotelawala Defence University  
 **Module:** IT22013 Data Structures and Algorithms  
-**Game:** JUMPBRO  
+**Game:** Platform Jumper  
 **Group members:** Add names and student IDs in a separate table before submission.
 
 ## 1. Introduction
-JUMPBRO is a 2D platform game implemented in Java using Swing and AWT. The player moves across platforms, collects coins, avoids hazards and reaches a finish flag. The project demonstrates data structures and algorithms in a practical interactive program.
+Platform Jumper is a 2D platform game implemented in Java using Swing and AWT. The player moves across platforms, collects coins, avoids hazards and reaches a finish flag. The project demonstrates data structures and algorithms in a practical interactive program.
 
 ## 2. Game Concept and Objectives
-The objective is to finish progressively challenging levels while collecting coins and keeping at least one life. The game includes a main menu, keyboard controls, pause/resume, score and coin counters, lives, and end screens. Anyone can play immediately without requiring an account.
+The objective is to finish three progressively challenging levels while collecting coins and keeping at least one life. The game includes a main menu, keyboard controls, pause/resume, score and coin counters, lives, a leaderboard, and end screens.
 
 ## 3. Design Overview and Architecture
-`Main` starts the Swing application. `GameFrame` owns the window and switches between screens. `MenuPanel` presents navigation. `GamePanel` runs a Swing Timer, reads keyboard input, updates game state, detects collisions, and draws the scene. `Player`, `Platform`, `Coin`, and `Obstacle` model game objects. `Level` contains level layouts. `GameEventManager` processes events. `ProgressManager` saves and loads player level unlock progression and high scores.
+`Main` starts the Swing application. `GameFrame` owns the window and switches between screens. `MenuPanel` presents navigation. `GamePanel` runs a Swing Timer, reads keyboard input, updates game state, detects collisions, and draws the scene. `Player`, `Platform`, `Coin`, and `Obstacle` model game objects. `Level` contains level layouts. `GameEventManager` processes events. `Leaderboard` saves, sorts, and searches score records.
 
 Data flow: keyboard input -> player update -> collision detection -> queue events -> event processing -> score/lives/level changes -> repaint.
 
@@ -69,7 +69,7 @@ Do not insert fabricated screenshots.
 Potential challenges include preventing repeated collision events, keeping player records paired with scores during sorting, making keyboard focus reliable, and ensuring level progression does not recurse indefinitely. The implementation marks coins/hazards before enqueueing events, swaps whole records, requests keyboard focus when entering gameplay, and uses a base case for recursion. Confirm these behaviors during local testing.
 
 ## 11. Conclusion
-JUMPBRO combines a playable Java Swing game with arrays, a FIFO queue, and recursion. It offers a concrete demonstration of how DSA concepts can support game state management and event processing. The group should run the test plan, record actual outcomes, capture screenshots and update this report before submission.
+Platform Jumper combines a playable Java Swing game with arrays, a FIFO queue, Bubble Sort, Linear Search and recursion. It offers a concrete demonstration of how DSA concepts can support game state management, event processing and leaderboard functionality. The group should run the test plan, record actual outcomes, capture screenshots and update this report before submission.
 
 ## 12. References
 - General Sir John Kotelawala Defence University, *IT22013 Data Structures and Algorithms — Group Assignment Specification*, Intake 42, uploaded assignment handout.
